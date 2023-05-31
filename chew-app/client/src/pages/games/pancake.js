@@ -6,10 +6,34 @@ import PancakeQuiz from "./pancakeQuiz";
 //oppskrift til rett
 
 const Oppskrift = () => {
-    var hvetemel = 0.75;
-    var salt = 0.13;
-    var egg = 1;
-    var smor = 0.25;
+    const [scale, setScale] = useState(1);
+
+    const hvetemel = 0.75 * scale;
+    const melk = 1.25 * scale;
+    const salt = 0.13 * scale;
+    const egg = 1 * scale;
+    const smor = 0.25 * scale;
+
+
+    const steps = [
+        `Bland ${hvetemel}dl mel og ${salt}ts salt. Tilsett ${melk/2}dl melk.`,
+        'Visp sammen til en tykk og klump-fri røre.',
+        `Tilsett resten av ${melk/2}dl melk . Visp inn ${egg} egg.`,
+        'La pannekakerøren svelle i ca. ½ time.',
+        'Ikke spar på eggene i en pannekakerøre. Eggene binder røren, slik at du kan bruke mindre mel. Da blir det tynne og fine pannekaker.'
+    ]
+
+
+
+    const scaleUp = () => setScale(prevScale => prevScale + 1);
+    const scaleDown = () => setScale(prevScale => prevScale > 1 ? prevScale -1 : 1);
+
+    const [index, setIndex] = useState(0);
+    const [quizStarted, setQuizStarted] = useState(false);
+
+    const handleSelect = (selectedIndex) => {
+        setIndex(selectedIndex);
+    };
 
     return (
         <div>
