@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import PancakeQuiz from "./pancakeQuiz";
 
 //oppskrift til rett
 
@@ -10,47 +13,51 @@ const Oppskrift = () => {
 
     return (
         <div>
-            <h1>Pannekake oppskrift spill!</h1>
-            <ol>
-                <li>Bland mel og salt. Tilsett halvparten av melken.</li>
-                <li>Visp sammen til en tykk og klumpfri røre.</li>
-                <li>Tilsett resten av melken. Visp inn egg.</li>
-                <li>La pannekakerøren svelle i ca. ½ time.</li>
-                <li>Ikke spar på eggene i en pannekakerøre. Eggende binder røren, slik at du kan bruke mindre mel. Da blir det tynne og fine pannekaker.</li>
-            </ol>
+            {quizStarted ? (
+                <div>
+                    <PancakeQuiz />
+                    <button onClick={() => setQuizStarted(false)}>Avslutt quiz</button>
+                </div>
+            ) : (
+                <>
+                    <h1>Pannekake oppskrift spill!</h1>
+                    <h2>Denne oppskriften er for {2*scale}x pannekaker</h2>
+                    <button onClick={scaleUp}>Øk antall pannekaker</button>
+                    <button onClick={scaleDown}>Senk antall pannekaker</button>
+
+                    <p>Random bilder for nå</p>
+                    <Carousel activeIndex={index} onSelect={handleSelect}
+                              style={{width: "50%"}}
+                    >
+                        {steps.map((step, index) => (
+                            <Carousel.Item key={index}>
+                                <img
+                                    className="d-block w-100"
+                                    src= {`https://picsum.photos/800/400?text=${index + 1}`}
+                                    alt={"flexgiun"}
+                                />
+                                <Carousel.Caption>
+                                    <div style={{textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>
+                                        <h3>Steg {index + 1}</h3>
+                                        <p>{step}</p>
+                                    </div>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
+                    {index === steps.length - 1 && (
+                        <button onClick={() => setQuizStarted(true)}>Start quizen!</button>
+                    )}
+                </>
+            )}
         </div>
-    )
-}
-
-const Quiz = () => {
-    const [score, setScore] = useState(0);
-    const [finished, setFinished] = useState(false);
-
-    const handleAnswer = (isCorrect) => {
-        if(isCorrect) {
-            setScore(prevScore => prevScore + 1);
-        }
-        setFinished(true);
-    }
-    return (
-        <div>
-            <h1>Pannekake Quiz</h1>
-            <p>Hva er første steget i oppskriften?</p>
-            <button onClick={() => handleAnswer(false)}>Bland melk og salt, tilsett klumpfri røre!</button>
-            <button onClick={() => handleAnswer(true)}>Bland mel og salt. Tilsett halvparten av melken!</button>
-
-            {finished && (score === 1 ?
-            <p>Gratulerer, du kan nå gå å lage maten!</p> :
-                <p>Du fikk et svar feil. Prøv igjen!</p>)}
-        </div>
-    )
+    );
 }
 
 const Pancake = () => {
     return (
         <div>
             <Oppskrift />
-            <Quiz />
         </div>
     )
 }

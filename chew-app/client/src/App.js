@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { TeacherPage } from "./pages/teacher/teacher";
 import { GamesPage } from "./pages/games/games";
+import Pancake from "./pages/games/pancake";
 
 
 function FrontPage() {
@@ -26,7 +27,7 @@ function App() {
               <Route path={"/"} element={<FrontPage/>}></Route>
               <Route path={"/teacher/"} element={<TeacherPage/>}></Route>
               <Route path={"/games/"} element={<GamesPage/>}></Route>
-              <Route path={"/games/pancake"} element={<GamesPage/>}></Route>
+              <Route path={"/games/pancake"} element={<Pancake/>}></Route>
           </Routes>
       </BrowserRouter>
   );
