@@ -26,6 +26,7 @@ const Oppskrift = () => {
                     <button onClick={scaleDown}>Senk antall pannekaker</button>
 
                     <p>Random bilder for nå</p>
+
                     <Carousel activeIndex={index} onSelect={handleSelect}
                               style={{width: "50%"}}
                     >
