@@ -26,6 +26,7 @@ function App() {
               <Route path={"/"} element={<FrontPage/>}></Route>
               <Route path={"/teacher/"} element={<TeacherPage/>}></Route>
               <Route path={"/games/"} element={<GamesPage/>}></Route>
+              <Route path={"/games/pancake"} element={<GamesPage/>}></Route>
           </Routes>
       </BrowserRouter>
   );
