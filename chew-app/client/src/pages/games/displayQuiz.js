@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const PancakeQuiz = () => {
+export const DisplayQuiz = () => {
     const [score, setScore] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -65,10 +65,10 @@ export const PancakeQuiz = () => {
     return (
         <div>
             <h2>{quiz.questions[currentQuestionIndex].question}</h2>
-            {quiz.questions[currentQuestionIndex].choices.map(choiceT => (<button onClick={() => handleAnswer(choiceT)}>{choiceT}</button>
+            {quiz.questions[currentQuestionIndex].choices.map(choiceT => (<button key = {`${choiceT}`} onClick={() => handleAnswer(choiceT)}>{choiceT}</button>
             ))}
         </div>
     )
 }
 
-export default PancakeQuiz;
+export default DisplayQuiz;
