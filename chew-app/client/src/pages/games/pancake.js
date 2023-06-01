@@ -18,10 +18,13 @@ const Oppskrift = () => {
     const steps = [
         `Bland ${hvetemel}dl mel og ${salt}ts salt. Tilsett ${melk/2}dl melk.`,
         'Visp sammen til en tykk og klump-fri røre.',
-        `Tilsett resten av ${melk/2}dl melk . Visp inn ${egg} egg.`,
+        `Tilsett resten av melken (${melk/2}dl). Visp inn ${egg} egg.`,
         'La pannekakerøren svelle i ca. ½ time.',
-        'Ikke spar på eggene i en pannekakerøre. Eggene binder røren, slik at du kan bruke mindre mel. Da blir det tynne og fine pannekaker.'
-    ]
+        'Smelt smør eller margarin i en god og varm stekepanne.',
+        'Hell i en øse med pannekakerøre og vend på pannen, slik at røren legger seg i et jevnt lag.',
+        'Snu pannekaken når den har stivnet på oversiden og blitt gyllenbrun på undersiden.',
+        'Når pannekaken er stekt på begge sider, brettes den sammen og legges i et ildfast fat med lokk. Pannekakene holder da varmen, slik at alle kan spise sammen.',
+    ];
 
 
 
@@ -30,6 +33,7 @@ const Oppskrift = () => {
 
     const [index, setIndex] = useState(0);
     const [quizStarted, setQuizStarted] = useState(false);
+
 
     const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex);
@@ -49,22 +53,15 @@ const Oppskrift = () => {
                     <button onClick={scaleUp}>Øk antall pannekaker</button>
                     <button onClick={scaleDown}>Senk antall pannekaker</button>
 
-                    <p>Random bilder for nå</p>
-
                     <Carousel activeIndex={index} onSelect={handleSelect}
-                              style={{width: "50%"}}
+                              style={{width: "50%", margin: "auto"}}
                     >
                         {steps.map((step, index) => (
                             <Carousel.Item key={index}>
-                                <img
-                                    className="d-block w-100"
-                                    src= {`https://picsum.photos/800/400?text=${index + 1}`}
-                                    alt={"flexgiun"}
-                                />
-                                <Carousel.Caption>
-                                    <div style={{textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>
+                                <Carousel.Caption style={{position: "static", background:"grey"}}>
+                                    <div style={{textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black", fontSize: "2rem"}}>
                                         <h3>Steg {index + 1}</h3>
-                                        <p>{step}</p>
+                                        <p style={{margin: "0 10% 2% 10%"}}>{step}</p>
                                     </div>
                                 </Carousel.Caption>
                             </Carousel.Item>
