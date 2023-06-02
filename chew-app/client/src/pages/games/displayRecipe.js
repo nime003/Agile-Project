@@ -139,7 +139,39 @@ const recipes = [
         ],
         //quiz til vafler
         quiz: {
+            topic: 'Vaffel Oppskrift',
+            level: 'Enkel',
+            totalQuestions: 4,
+            questions: [
+                {
+                    question: 'Hva er første steget i oppskriften?',
+                    choices: ['Bland Hvetemel, salt, sukker og vaniljesukker.', 'Bland mel og salt, tilsett halvparten av melken.', 'Ingen av alternativene.'],
+                    type: 'MCQs',
+                    correctAnswer: 'Bland Hvetemel, salt, sukker og vaniljesukker.',
+                },
 
+                {
+
+                    question: 'Hvordan får man en glatt røre?',
+                    choices: ['Bruke smoothieblender.', 'Spe melken sakte inn og rør godt slik at du får en glatt røre.', 'Man kan ikke få en glatt røre.', 'Ingen av alternativene.'],
+                    type: 'MCQs',
+                    correctAnswer: 'Spe melken sakte inn og rør godt slik at du får en glatt røre.',
+                },
+                {
+
+                    question: 'Hvordan tilbereder man vaffeljernet?',
+                    choices: ['I ovnen.', 'På et varmt gulv.', 'Med smør eller margarin.', 'Ingen av alternativene.'],
+                    type: 'MCQs',
+                    correctAnswer: 'Med smør eller margarin.',
+                },
+                {
+
+                    question: 'Hva kan du servere vaffelen med?',
+                    choices: ['Gulost, salat og hamburgerdressing.', 'Motorolje.', 'grus og blader.', 'Ingen av alternativene.'],
+                    type: 'MCQs',
+                    correctAnswer: 'Ingen av alternativene.',
+                }
+            ],
         }
     },
     {
@@ -148,23 +180,69 @@ const recipes = [
         ingredients: [
             {
                 name: "Poteter",
-                amount: 1,
-                unit: "kg"
+                amount: 10,
+                unit: "stk"
             },
             {
                 name: "Salt",
                 amount: 2,
                 unit: "ts"
+            },
+            {
+                name: "Melk",
+                amount: 2,
+                unit: "dl"
+            },
+            {
+                name: "Smør",
+                amount: 2,
+                unit: "ss"
+            },
+            {
+                name: "Pepper",
+                amount: 0.5,
+                unit: "ts"
+            },
+            {
+                name: "Revet muskatnøtt",
+                amount: 0.25,
+                unit: "ts"
             }
         ],
         steps: [
-            "{Poteter}",
-            "{Salt}",
-            "samplestep pomos 3",
+            "Skrell {Poteter}poteter og kok dem møre, uten salt i vannet. Hell av vannet.",
+            "Varm opp {melk} melk til rett under kokepunktet",
+            "Mos potetene og rør inn smør. Ha i litt og litt varm melk av gangen. Rør godt underveis.",
+            "Smak til med salt, pepper og muskat.",
         ],
         //potetmos quiz
         quiz: {
+            topic: 'Potetmos oppskrift',
+            level: 'Enkel',
+            totalQuestions: 3,
+            questions: [
+                {
+                    question: 'Hva er første steget i oppskriften?',
+                    choices: ['Bland muskattnøtt og salt for en god kryddermiks.', 'Skrell poteter og kok dem møre, uten salt i vannet. Hell av vannet.', 'Ingen av alternativene.'],
+                    type: 'MCQs',
+                    correctAnswer: 'Skrell poteter og kok dem møre, uten salt i vannet. Hell av vannet.',
+                },
 
+                {
+
+                    question: 'Hvordan skal melken tilberedes?',
+                    choices: ['Varmes opp til rett under kokepunktet.', 'Kald i målebeger.', 'Ingen av alternativene.'],
+                    type: 'MCQs',
+                    correctAnswer: 'Varmes opp til rett under kokepunktet.',
+                },
+                {
+
+                    question: 'Hvordan krydrer man potetmosen?',
+                    choices: ['Med krydderet som står i oppskriften.', 'Prøver seg fram med litt og litt av krydderet i oppskriften.', 'Ingen av alternativene.'],
+                    type: 'MCQs',
+                    correctAnswer: 'Prøver seg fram med litt og litt av krydderet i oppskriften.',
+                }
+            ],
         }
     }
 ];
