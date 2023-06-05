@@ -28,9 +28,10 @@ function Navbar(){
                     />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item><Link to={"/"}>Home</Link></Dropdown.Item>
-                    <Dropdown.Item><Link to={"/teacher"}>Teacher</Link></Dropdown.Item>
-                    <Dropdown.Item><Link to={"/games"}>Games</Link></Dropdown.Item>
+                    <Dropdown.Item as={Link} to={"/"}>Home</Dropdown.Item>
+                    <Dropdown.Item as={Link} to={"/teacher/"}>Teacher</Dropdown.Item>
+                    <Dropdown.Item as={Link} to={"/games/"}>Games</Dropdown.Item>
+
                 </Dropdown.Menu>
             </Dropdown>
         </nav>
