@@ -210,8 +210,8 @@ const recipes = [
             }
         ],
         steps: [
-            "Skrell {Poteter}poteter og kok dem møre, uten salt i vannet. Hell av vannet.",
-            "Varm opp {melk} melk til rett under kokepunktet",
+            "Skrell {Poteter} og kok dem møre, uten salt i vannet. Hell av vannet.",
+            "Varm opp {Melk} til rett under kokepunktet",
             "Mos potetene og rør inn smør. Ha i litt og litt varm melk av gangen. Rør godt underveis.",
             "Smak til med salt, pepper og muskat.",
         ],
@@ -319,6 +319,7 @@ const DynamiskOppskrift = () => {
                         onClick={() => {
                             setSelectedRecipe(recipe);
                             setRecipeIndex(index);
+                            setQuizStarted(false);
                         }}
                         style={{
                             margin: "10px",
@@ -329,7 +330,7 @@ const DynamiskOppskrift = () => {
             </div>
             {quizStarted ? (
                 <div>
-                    <DisplayQuiz />
+                    <DisplayQuiz quiz={recipes[recipeIndex].quiz}/>
                     <button onClick={() => setQuizStarted(false)}>Avslutt quiz</button>
                 </div>
             ) : (
@@ -345,6 +346,7 @@ const DynamiskOppskrift = () => {
                         {Object.keys(selectedRecipe.ingredients).map((ingredient, index) =>(
                             <li key={index}>
                                 <input
+                                    style={{marginRight: "10px"}}
                                     type={"checkbox"}
                                     checked={checkedIngredients[ingredient] || false}
                                     onChange={() => handleCheckOff(ingredient)}
