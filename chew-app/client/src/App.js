@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { TeacherPage } from "./pages/teacher/teacher";
 import { GamesPage } from "./pages/games/games";
 import DisplayRecipe from "./pages/games/displayRecipe";
+import LoginPage from "./pages/account/login";
+import ProfilePage from "./pages/account/profile";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -51,6 +53,9 @@ function FrontPage() {
             <div>
                 <Link to={"/games/"}>Games</Link>
             </div>
+            <div>
+                <Link to={"/login/"}>Account</Link>
+            </div>
         </div>
     );
 }
@@ -64,6 +69,8 @@ function App() {
               <Route path={"/teacher/"} element={<TeacherPage/>}></Route>
               <Route path={"/games/"} element={<GamesPage/>}></Route>
               <Route path={"/games/pancake"} element={<DisplayRecipe/>}></Route>
+              <Route path={"/login/"} element={<LoginPage/>}></Route>
+              <Route path={"/ProfilePage"} element={<ProfilePage/>}></Route>
           </Routes>
       </BrowserRouter>
   );
