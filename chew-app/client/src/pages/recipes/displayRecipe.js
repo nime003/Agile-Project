@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import DisplayQuiz from "./displayQuiz";
+import {Button, Checkbox, FormControlLabel, List, ListItem, Modal, Typography} from "@mui/material";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {Box} from "@mui/system";
 
 const recipes = [
     {
@@ -247,19 +248,14 @@ const recipes = [
     }
 ];
 
-const DynamiskOppskrift = () => {
 
-    const switchRecipe = () => {
-        const newRecipeIndex = (recipeIndex + 1) % recipes.length;
-        setRecipeIndex(newRecipeIndex);
-        setSelectedRecipe(recipes[newRecipeIndex]);
-        setCarouselIndex(0);
-    }
+
+const DynamiskOppskrift = () => {
 
     const [scale, setScale] = useState(1);
     const [carouselIndex, setCarouselIndex] = useState(0);
     const [quizStarted, setQuizStarted] = useState(false);
-    const [recipeIndex, setRecipeIndex] = useState(0);
+    const [recipeIndex, setRecipeIndex] = useState(1);
     const [dynamicSteps, setDynamicSteps] = useState([]);
     const [selectedRecipe, setSelectedRecipe] = useState(recipes[recipeIndex]);
     const [checkedIngredients, setCheckedIngredients] = useState(
@@ -293,12 +289,6 @@ const DynamiskOppskrift = () => {
             newCheckedIngredients[ingredient.name] = false;
         })
         setCheckedIngredients(newCheckedIngredients)
-        // const ingredientKeys = Object.keys(selectedRecipe.ingredients);
-        // const newCheckedIngredients = {};
-        // ingredientKeys.forEach((key) => {
-        //     newCheckedIngredients[key] = false;
-        // });
-        // setCheckedIngredients(newCheckedIngredients);
     }, [selectedRecipe, scale]);
 
     const handleCheckOff = (ingredient) => {
@@ -310,73 +300,181 @@ const DynamiskOppskrift = () => {
         setCarouselIndex(selectedIndex);
     };
 
+    const [openModal, setOpenModal] = React.useState(false);
+
+
+    function DisplayQuiz () {
+        let quiz = selectedRecipe.quiz;
+        const [score, setScore] = useState(0);
+        const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+        const handleClose = () => setOpenModal(false);
+
+
+        const handleRestart = () => {
+            setScore(0);
+            setCurrentQuestionIndex(0);
+        }
+
+        const handleAnswer = (answer) => {
+            if (answer === quiz.questions[currentQuestionIndex].correctAnswer) {
+                setScore(prevScore => prevScore + 1);
+            }
+            if (currentQuestionIndex + 1 !== quiz.questions.length) {
+                setCurrentQuestionIndex(prevQuestionIndex => prevQuestionIndex + 1);
+            } else {
+
+            }
+        }
+
+
+        return (
+            <Modal
+                open={openModal}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        bgcolor: '#ff5b2e',
+                        color: '#ffffff',
+                        p: 4,
+                        m: 2,
+                        borderRadius: 2,
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }}
+                >
+                    <Typography variant="h4"
+                                sx={{
+                                    textShadow: `-1px -1px 0 #000,
+                                1px -1px 0 #000,
+                                -1px  1px 0 #000,
+                                1px  1px 0 #000`
+                                }}
+                    >{quiz.questions[currentQuestionIndex].question}</Typography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-evenly',
+                            justifyItems: 'space-evenly',
+                            alignItems: 'center',
+                            height: '80%',
+                            mt: 2,
+                        }}
+                    >
+                        {quiz.questions[currentQuestionIndex].choices.map(choiceT => (
+                            <Button key={`${choiceT}`}
+                                    variant="contained"
+                                    sx={{width: '50%', mt: 1, bgcolor: '#FFFFFF', color: '#000000'}}
+                                    onClick={() => handleAnswer(choiceT)}>{choiceT}</Button>
+                        ))}
+                    </Box>
+                    <Box>
+                        <Typography>Hei !</Typography>
+                    </Box>
+                </Box>
+            </Modal>
+        )
+    }
+
+
+    function handleOpenQuiz() {
+        setOpenModal(true);
+    }
+
     return (
         <div>
             <div style={{display: "flex", justifyContent: "center", margin: "10px"}}>
                 {recipes.map((recipe, index) =>(
-                    <button
+                    <Button
                         key={index}
                         onClick={() => {
                             setSelectedRecipe(recipe);
                             setRecipeIndex(index);
+                            setCarouselIndex(0);
                             setQuizStarted(false);
                         }}
                         style={{
                             margin: "10px",
                             backgroundColor: recipeIndex === index ? "lightblue" : "white"
                         }}
-                    >{recipe.name}</button>
+                    >{recipe.name}</Button>
                 ))}
             </div>
-            {quizStarted ? (
                 <div>
-                    <DisplayQuiz quiz={recipes[recipeIndex].quiz}/>
-                    <button onClick={() => setQuizStarted(false)}>Avslutt quiz</button>
-                </div>
-            ) : (
-                <div>
-                    <h1>{selectedRecipe.name} oppskrift spill!</h1>
-                    <h2>Denne oppskriften er for {selectedRecipe.portionSize * scale}x {selectedRecipe.name}</h2>
-
-                    <button onClick={scaleUp}>Øk antall porsjoner</button>
-                    <button onClick={scaleDown}>Senk antall porsjoner</button>
-                    <button onClick={switchRecipe}>Bla gjennom oppskrifter></button>
-                    <h2>Ingredienser som trengs:</h2>
-                    <ul>
-                        {Object.keys(selectedRecipe.ingredients).map((ingredient, index) =>(
-                            <li key={index}>
-                                <input
-                                    style={{marginRight: "10px"}}
-                                    type={"checkbox"}
-                                    checked={checkedIngredients[ingredient] || false}
-                                    onChange={() => handleCheckOff(ingredient)}
-                                />
-                                {selectedRecipe.ingredients[ingredient].name}: {selectedRecipe.ingredients[ingredient].amount * scale} {selectedRecipe.ingredients[ingredient].unit}
-                            </li>
-                        ))}
-                    </ul>
-
-                    <Carousel activeIndex={carouselIndex} onSelect={handleSelect}
-                              style={{width: "50%", margin: "auto"}}
+                    <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
                     >
-                        {dynamicSteps.map((step, index) => (
-                            <Carousel.Item key={index}>
-                                <Carousel.Caption style={{position: "static", background:"#ff5b2e"}}>
-                                    <div style={{textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black", fontSize: "2rem"}}>
-                                        <h3>Steg {index + 1}</h3>
-                                        <p style={{margin: "0 10% 2% 10%"}}>{step}</p>
+                        <Typography variant="h2">{selectedRecipe.name} oppskrift!</Typography>
+                        <Typography variant="h4">Denne oppskriften er for {selectedRecipe.portionSize * scale}x {selectedRecipe.name}</Typography>
+
+                        <Box
+                            flexDirection="row"
+                        >
+                            <Button onClick={scaleUp} >Øk antall porsjoner</Button>
+                            <Button onClick={scaleDown}>Senk antall porsjoner</Button>
+                        </Box>
+                        <Typography variant="h4">Ingredienser som trengs:</Typography>
+                        <List>
+                            {Object.keys(selectedRecipe.ingredients).map((ingredient, index) =>(
+                                <ListItem key={index}>
+                                    <FormControlLabel
+                                        control={<Checkbox
+                                            checked={checkedIngredients[ingredient] || false}
+                                            onChange={() => handleCheckOff(ingredient)}
+                                        />}
+                                        label={`
+                                    ${selectedRecipe.ingredients[ingredient].name}: ${selectedRecipe.ingredients[ingredient].amount * scale} ${selectedRecipe.ingredients[ingredient].unit}
+                                 `}/>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+
+                    <Box sx={{width: "50%", margin: "auto", background: "#ff5b2e"}}>
+                        <Carousel
+                            showThumbs={false}
+                            dynamicHeight={false}
+                            selectedItem={carouselIndex}
+                            onChange={handleSelect}
+                        >
+                            {dynamicSteps.map((step, index) => (
+                                <div key={index} >
+                                    <div style={{position: "static", paddingBottom: "2rem"}}>
+                                        <Typography variant="h3">Steg {index + 1}</Typography>
+                                        <Typography variant="body1" style={{margin: "0 2rem 0 2rem"}}>{step}</Typography>
                                     </div>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
-                    {carouselIndex === dynamicSteps.length - 1 && (
-                        <button onClick={() => setQuizStarted(true)}>Start quizen!</button>
-                    )}
+                                </div>
+                            ))}
+
+                            <div key={dynamicSteps.length + 1}>
+                                <div style={{position: "static", height: "100%"}}>
+                                    <Typography variant="h3">
+                                        <Button
+                                            style={{margin: "0 10% 2% 10%"}}
+                                            onClick={handleOpenQuiz}
+                                        >
+                                            Start quizen!
+                                        </Button>
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Carousel>
+                    </Box>
                 </div>
-            )}
+            <DisplayQuiz/>
         </div>
-    );
+);
 }
 
 const DisplayRecipe = () => {
@@ -388,101 +486,3 @@ const DisplayRecipe = () => {
 }
 
 export default DisplayRecipe;
-
-
-// const [scale, setScale] = useState(1);
-//
-// const hvetemel = 0.75 * scale;
-// const melk = 1.25 * scale;
-// const salt = 0.13 * scale;
-// const egg = 1 * scale;
-// const smor = 0.25 * scale;
-//
-//
-// const steps = [
-//     `Bland ${hvetemel}dl mel og ${salt}ts salt. Tilsett ${melk/2}dl melk.`,
-//     'Visp sammen til en tykk og klump-fri røre.',
-//     `Tilsett resten av melken (${melk/2}dl). Visp inn ${egg} egg.`,
-//     'La pannekakerøren svelle i ca. ½ time.',
-//     'Smelt smør eller margarin i en god og varm stekepanne.',
-//     'Hell i en øse med pannekakerøre og vend på pannen, slik at røren legger seg i et jevnt lag.',
-//     'Snu pannekaken når den har stivnet på oversiden og blitt gyllenbrun på undersiden.',
-//     'Når pannekaken er stekt på begge sider, brettes den sammen og legges i et ildfast fat med lokk. Pannekakene holder da varmen, slik at alle kan spise sammen.',
-// ];
-//
-// const scaleUp = () => setScale(prevScale => prevScale + 1);
-// const scaleDown = () => setScale(prevScale => prevScale > 1 ? prevScale -1 : 1);
-
-
-//
-// const testOppskrift = {
-//     name: "Pannekaker",
-//     scale: 1,
-//     ingredients: {
-//         hvetemel: 0.75,
-//         melk: 1.25,
-//         salt: 0.13,
-//         egg: 1,
-//         smor: 0.25,
-//     },
-//     steps: [
-//         `Bland `+ this.ingredients.hvetemel + `dl mel og ts salt. Tilsett dl melk.`,
-//         'Visp sammen til en tykk og klump-fri røre.',
-//         //`Tilsett resten av melken (${this.melk/2}dl). Visp inn ${(this.egg)} egg.`,
-//         'La pannekakerøren svelle i ca. ½ time.',
-//         'Smelt smør eller margarin i en god og varm stekepanne.',
-//         'Hell i en øse med pannekakerøre og vend på pannen, slik at røren legger seg i et jevnt lag.',
-//         'Snu pannekaken når den har stivnet på oversiden og blitt gyllenbrun på undersiden.',
-//         'Når pannekaken er stekt på begge sider, brettes den sammen og legges i et ildfast fat med lokk. Pannekakene holder da varmen, slik at alle kan spise sammen.',
-//     ],
-//     /*
-//     quiz: {
-//         topic: 'Pannekake oppskrift',
-//         level: 'Enkel',
-//         totalQuestions: 4,
-//         questions: [
-//             {
-//                 question: 'Hva er første steget i oppskriften?',
-//                 choices: ['Bland melk og salt., tilsett klump-fri røre.', 'Bland mel og salt, tilsett halvparten av melken.', 'Ingen av alternativene.'],
-//                 type: 'MCQs',
-//                 correctAnswer: 'Bland mel og salt, tilsett halvparten av melken.',
-//             },
-//
-//             {
-//                 // Smelt smør eller margarin i en god og varm stekepanne.
-//                 // Hell i en øse med pannekakerøre og vend på pannen, slik at røren legger seg i et jevnt lag.
-//                 // Snu pannekaken når den har stivnet på oversiden og blitt gyllenbrun på undersiden.
-//                 question: 'Hvordan skal man helle røren i pannen?',
-//                 choices: ['Rett i og vente.', 'Helle i og vende på pannen slik at røren er gjevn.', 'Bruke vann i pannen og dyppe den i røren.', 'Ingen av alternativene.'],
-//                 type: 'MCQs',
-//                 correctAnswer: 'Helle i og vende på pannen slik at røren er gjevn.',
-//             },
-//             {
-//                 // Når pannekaken er stekt på begge sider, brettes den sammen og legges i et ildfast fat med lokk. Pannekakene holder da varmen, slik at alle kan spise sammen.
-//                 question:
-//                     'Hvordan burde man lagre pannekaken når de er ferdigstekt?',
-//                 choices: ['I kjøleskapet.', 'På et varmt gulv.', 'Ute i sola.', 'Ingen av alternativene.'],
-//                 type: 'MCQs',
-//                 correctAnswer: 'Ingen av alternativene.',
-//             },
-//             {
-//                 // La pannekakerøren svelle i ca. ½ time.
-//                 question:
-//                     'Hvor lenge skal pannekakerøren svelle?',
-//                 choices: ['1 time.', '1 minutt.', '30 minutter.', 'Ingen av alternativene.'],
-//                 type: 'MCQs',
-//                 correctAnswer: '30 minutter.',
-//             }
-//         ],
-//     }
-//      */
-// }
-//
-//
-// /*
-// const scaleUp = () => testOppskrift.scale += 1;
-// const scaleDown = () => testOppskrift.scale > 1 ? testOppskrift.scale -= 1 : 1;
-// */
-
-// const [index, setIndex] = useState(0);
-// const [quizStarted, setQuizStarted] = useState(false);

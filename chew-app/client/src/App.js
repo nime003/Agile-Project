@@ -1,76 +1,139 @@
+import React, {useState} from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import { styled } from '@mui/system';
 import { TeacherPage } from "./pages/teacher/teacher";
-import { GamesPage } from "./pages/games/games";
-import DisplayRecipe from "./pages/games/displayRecipe";
+import { RecipesPage } from "./pages/recipes/recipes";
+import DisplayRecipe from "./pages/recipes/displayRecipe";
 import LoginPage from "./pages/account/login";
 import ProfilePage from "./pages/account/profile";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import {Dropdown} from "react-bootstrap";
+import {
+    AppBar,
+    Box,
+    Drawer,
+    FormControlLabel,
+    FormGroup,
+    IconButton, ListItem, ListItemButton, ListItemText, Menu,
+    MenuItem,
+    Switch,
+    Toolbar,
+    Typography
+} from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {AccountCircle} from "@mui/icons-material";
+import {grey} from "@mui/material/colors";
 
-function Navbar(){
-    return (
-        <nav className={"navbar"}
-             style={{boxShadow: "0px 0vh 1vh rgba(0, 0, 0, 0.25)"}}
-        >
-            <Link to={"/"}>
-                <img src={process.env.PUBLIC_URL + "/images/Chew_Logo_Orange.png"} alt={"Chew Logo"}
-                     style={{width: "7vw", minWidth: "100px", marginLeft: "1vw", height: "auto"}}
-                />
-            </Link>
-            <Dropdown
-                style={{ position:"absolute", right: "0px",marginRight: "2vw", width: "4vw", minWidth: "25px", height: "auto"}}
-            >
-                <Dropdown.Toggle variant="success" id="dropdown-basic"
-                                    style={{backgroundColor: "#ff5b2e", border: "none", boxShadow:"0px 0vh 1vh rgba(0, 0, 0, .25)"}}
-                >
-                    <img src={process.env.PUBLIC_URL + "/images/burger-menu.svg"} alt={"Burger menu"}
-                         style={{width: "100%", minWidth: "30px", height: "auto"}}
-                    />
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to={"/"}>Home</Dropdown.Item>
-                    <Dropdown.Item as={Link} to={"/teacher/"}>Teacher</Dropdown.Item>
-                    <Dropdown.Item as={Link} to={"/games/"}>Games</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item>Log out</Dropdown.Item>
-
-                </Dropdown.Menu>
-            </Dropdown>
-        </nav>
-    );
-}
 
 function FrontPage() {
     return (
         <div>
-            <h1>Hello FrontPage</h1>
-            <div>
-                <Link to={"/teacher/"}>Teacher</Link>
-            </div>
-            <div>
-                <Link to={"/games/"}>Games</Link>
-            </div>
-            <div>
-                <Link to={"/login/"}>Account</Link>
-            </div>
+            <h1>HELLO FRONT PAGE</h1>
         </div>
     );
 }
 
+export const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#ff5b2e',
+        },
+        secondary: {
+            main: grey[500],
+        },
+    },
+});
+
+function NavBar(){
+
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const handleDrawerOpen = () => {
+        setDrawerOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setDrawerOpen(false);
+    };
+
+    const list = () => (
+        <Box
+            sx={{ width: 240}}
+            role="presentation"
+            onClick={handleDrawerClose}
+            onKeyDown={handleDrawerClose}
+        >
+            <Link to={"/"}>
+                <ListItemButton>
+                    <ListItemText primary="Home"/>
+                </ListItemButton>
+            </Link>
+            <Link to="/teacher">
+                <ListItemButton>
+                    <ListItemText primary="Teacher"/>
+                </ListItemButton>
+            </Link>
+            <Link to="/recipes">
+                <ListItemButton>
+                    <ListItemText primary="Recipes"/>
+                </ListItemButton>
+            </Link>
+            <Link to="/login">
+                <ListItemButton>
+                    <ListItemText primary="Login"/>
+                </ListItemButton>
+            </Link>
+        </Box>
+    );
+
+    return(
+        <ThemeProvider theme={theme}>
+            <Box>
+                <AppBar position="static">
+                    <Toolbar sx={{ display: 'flex', justifyContent: 'space-between'}}>
+                        <Link to="/" style={{ color: 'inherit', textDecoration: 'none'}}>
+                            <Typography variant="h6" noWrap component="div">
+                                Chew App
+                            </Typography>
+                        </Link>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={handleDrawerOpen}
+                            sx={{mr: 2}}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    anchor="right"
+                    open={drawerOpen}
+                    onClose={handleDrawerClose}
+                >
+                    {list()}
+                </Drawer>
+            </Box>
+        </ThemeProvider>
+    );
+}
+
 function App() {
+
   return (
       <BrowserRouter>
-            <Navbar/>
+        <NavBar/>
           <Routes>
-              <Route path={"/"} element={<FrontPage/>}></Route>
-              <Route path={"/teacher/"} element={<TeacherPage/>}></Route>
-              <Route path={"/games/"} element={<GamesPage/>}></Route>
-              <Route path={"/games/pancake"} element={<DisplayRecipe/>}></Route>
-              <Route path={"/login/"} element={<LoginPage/>}></Route>
-              <Route path={"/ProfilePage"} element={<ProfilePage/>}></Route>
+              <Route path={"/"} element={<FrontPage/>} />
+              <Route path={"/teacher/"} element={<TeacherPage/>} />
+              <Route path={"/recipes/"} element={<RecipesPage/>} />
+              <Route path={"/login/"} element={<LoginPage/>} />
+              <Route path={"/profile"} element={<ProfilePage/>} />
           </Routes>
       </BrowserRouter>
   );
