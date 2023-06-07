@@ -320,7 +320,7 @@ const DynamiskOppskrift = () => {
             if (answer === quiz.questions[currentQuestionIndex].correctAnswer) {
                 setScore(prevScore => prevScore + 1);
             }
-            if (currentQuestionIndex + 1 !== quiz.questions.length) {
+            if (currentQuestionIndex !== quiz.questions.length) {
                 setCurrentQuestionIndex(prevQuestionIndex => prevQuestionIndex + 1);
             } else {
 
@@ -350,16 +350,21 @@ const DynamiskOppskrift = () => {
                         transform: 'translate(-50%, -50%)'
                     }}
                 >
-                    <Typography variant="h4"
-                                sx={{
-                                    textShadow: `-1px -1px 0 #000,
+                    {currentQuestionIndex !== quiz.questions.length ?
+                        (
+
+                        <Box>
+                        <Typography
+                        variant="h4"
+                        sx={{
+                            textShadow: `-1px -1px 0 #000,
                                 1px -1px 0 #000,
                                 -1px  1px 0 #000,
                                 1px  1px 0 #000`
-                                }}
-                    >{quiz.questions[currentQuestionIndex].question}</Typography>
-                    <Box
-                        sx={{
+                                                                                   }}
+                        >{quiz.questions[currentQuestionIndex].question}</Typography>
+                            <Box
+                            sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-evenly',
@@ -368,17 +373,18 @@ const DynamiskOppskrift = () => {
                             height: '80%',
                             mt: 2,
                         }}
-                    >
+                            >
                         {quiz.questions[currentQuestionIndex].choices.map(choiceT => (
                             <Button key={`${choiceT}`}
-                                    variant="contained"
-                                    sx={{width: '50%', mt: 1, bgcolor: '#FFFFFF', color: '#000000'}}
-                                    onClick={() => handleAnswer(choiceT)}>{choiceT}</Button>
-                        ))}
-                    </Box>
-                    <Box>
-                        <Typography>Hei !</Typography>
-                    </Box>
+                            variant="contained"
+                            sx={{width: '50%', mt: 1, bgcolor: '#FFFFFF', color: '#000000'}}
+                            onClick={() => handleAnswer(choiceT)}>{choiceT}</Button>
+                            ))}
+                            </Box>
+                        </Box>
+                        )
+                    :
+                    <Typography>du fikk {score} av {quiz.questions.length} riktig!</Typography>}
                 </Box>
             </Modal>
         )
