@@ -3,6 +3,7 @@ import {Button, Checkbox, FormControlLabel, List, ListItem, Modal, Typography} f
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Box} from "@mui/system";
+import {DisplayQuiz} from "./displayQuiz";
 
 const recipes = [
     {
@@ -266,7 +267,6 @@ const DynamiskOppskrift = () => {
         )
     );
 
-
     const scaleUp = () => setScale(prevScale => prevScale + 1);
     const scaleDown = () => setScale(prevScale => prevScale > 1 ? prevScale -1 : 1);
 
@@ -300,93 +300,10 @@ const DynamiskOppskrift = () => {
         setCarouselIndex(selectedIndex);
     };
 
-    const [openModal, setOpenModal] = React.useState(false);
-
-
-    function DisplayQuiz () {
-        let quiz = selectedRecipe.quiz;
-        const [score, setScore] = useState(0);
-        const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-
-        const handleClose = () => setOpenModal(false);
-
-
-        const handleRestart = () => {
-            setScore(0);
-            setCurrentQuestionIndex(0);
-        }
-
-        const handleAnswer = (answer) => {
-            if (answer === quiz.questions[currentQuestionIndex].correctAnswer) {
-                setScore(prevScore => prevScore + 1);
-            }
-            if (currentQuestionIndex + 1 !== quiz.questions.length) {
-                setCurrentQuestionIndex(prevQuestionIndex => prevQuestionIndex + 1);
-            } else {
-
-            }
-        }
-
-
-        return (
-            <Modal
-                open={openModal}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        bgcolor: '#ff5b2e',
-                        color: '#ffffff',
-                        p: 4,
-                        m: 2,
-                        borderRadius: 2,
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)'
-                    }}
-                >
-                    <Typography variant="h4"
-                                sx={{
-                                    textShadow: `-1px -1px 0 #000,
-                                1px -1px 0 #000,
-                                -1px  1px 0 #000,
-                                1px  1px 0 #000`
-                                }}
-                    >{quiz.questions[currentQuestionIndex].question}</Typography>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-evenly',
-                            justifyItems: 'space-evenly',
-                            alignItems: 'center',
-                            height: '80%',
-                            mt: 2,
-                        }}
-                    >
-                        {quiz.questions[currentQuestionIndex].choices.map(choiceT => (
-                            <Button key={`${choiceT}`}
-                                    variant="contained"
-                                    sx={{width: '50%', mt: 1, bgcolor: '#FFFFFF', color: '#000000'}}
-                                    onClick={() => handleAnswer(choiceT)}>{choiceT}</Button>
-                        ))}
-                    </Box>
-                    <Box>
-                        <Typography>Hei !</Typography>
-                    </Box>
-                </Box>
-            </Modal>
-        )
-    }
-
+    const [openQuizModal, setOpenQuizModal] = React.useState(false);
 
     function handleOpenQuiz() {
-        setOpenModal(true);
+        setOpenQuizModal(true);
     }
 
     return (
@@ -472,7 +389,7 @@ const DynamiskOppskrift = () => {
                         </Carousel>
                     </Box>
                 </div>
-            <DisplayQuiz/>
+            <DisplayQuiz selectedRecipe={selectedRecipe} openQuizModal={openQuizModal} setOpenQuizModal={setOpenQuizModal}/>
         </div>
 );
 }
