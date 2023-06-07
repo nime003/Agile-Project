@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/system';
 import { TeacherPage } from "./pages/teacher/teacher";
 import { RecipesPage } from "./pages/recipes/recipes";
-import DisplayRecipe from "./pages/recipes/displayRecipe";
 import LoginPage from "./pages/account/login";
 import ProfilePage from "./pages/account/profile";
 import MenuIcon from '@mui/icons-material/Menu';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { Dropdown } from "react-bootstrap";
 import {
     AppBar,
     Box,
@@ -25,13 +22,12 @@ import {
     Button, Card, CardContent, Grid
 } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { AccountCircle } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
 import bgImage from "./background.JPG";
 import Logo from './ChewLogo.png';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
     root: {
         position: 'relative',
         height: '100vh',
