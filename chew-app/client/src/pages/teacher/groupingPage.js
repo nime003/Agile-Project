@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../../styles/GroupingPage.css';
+import '../../styles/teacher/GroupingPage.css';
 
 import Gruppe from "./components/Gruppe";
 import Klasse from "./components/Klasse";
