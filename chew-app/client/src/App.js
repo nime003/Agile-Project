@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { grey } from "@mui/material/colors";
+import GroupingPage from "./pages/teacher/groupingPage";
 
 export const theme = createTheme({
     palette: {
@@ -197,6 +198,7 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<FrontPage/>} />
                 <Route path={"/teacher/"} element={<TeacherPage/>} />
+                <Route path={"/teacher/grouping/"} element={<GroupingPage/>} />
                 <Route path={"/recipes/"} element={<RecipesPage/>} />
                 <Route path={"/login/"} element={<LoginPage/>} />
                 <Route path={"/profile"} element={<ProfilePage/>} />
