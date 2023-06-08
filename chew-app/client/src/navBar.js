@@ -86,10 +86,10 @@ export function NavBar(){
                 <AppBar position="static">
                     <Toolbar sx={{ display: 'flex', justifyContent: 'space-between'}}>
                         <Link to="/" style={{ color: 'inherit', textDecoration: 'none'}}>
-                            <img src={process.env.PUBLIC_URL + '/images/home-icon.svg'} alt={"Home Icon"}
+                            <img src={process.env.PUBLIC_URL + '/images/home-icon.gif'} alt={"Home Icon"}
                                 style={{height:'40px', width: 'auto', paddingRight: '10px', opacity: '0.9'}}
                             />
-                            <img src={process.env.PUBLIC_URL + "images/ChewLogo.png"} alt="Logo"
+                            <img src={process.env.PUBLIC_URL + "/images/ChewLogo.png"} alt="Logo"
                                  style={{height:'50px', width: 'auto'}}
                             />
                         </Link>

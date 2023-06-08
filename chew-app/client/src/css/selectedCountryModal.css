@@ -1,0 +1,33 @@
+.title-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 4rem;
+    animation: enterCountryName 5s;
+}
+.country-name {
+    margin: none !important;
+    font-size: 3em;
+    font-family: 'cursive';
+}
+
+@keyframes enterCountryName {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+img {  
+    width: 10rem;
+    } 
+
+.body-content{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: enterCountryName 5s;
+    }
+.food-text {
+    font-family: 'cursive';
+    font-size: 2em;
+    font-weight: bold;
+}

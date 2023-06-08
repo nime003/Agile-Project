@@ -1,0 +1,16 @@
+.title {
+    text-align: center;
+}
+.flags-container {
+    background: whitesmoke;
+    padding: 1rem 5rem 0 5rem;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 4fr 4fr;
+    grid-gap: 2px;
+    place-items: center;
+}
+
+.flag-item:hover {
+    cursor: pointer;
+}

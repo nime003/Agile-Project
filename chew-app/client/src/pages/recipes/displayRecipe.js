@@ -87,7 +87,7 @@ const recipes = [
         }
     },
     {
-        name: "Vaffler",
+        name: "Vafler",
         portionSize: 10,
         ingredients: [
             {

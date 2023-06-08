@@ -1,0 +1,16 @@
+.world-map-container {
+    position: relative;
+    margin-top:1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.start-game-button {
+    position: absolute;
+    top:0;
+    right:10%
+}
+.worldmap__figure-caption {
+    text-align: center;
+}

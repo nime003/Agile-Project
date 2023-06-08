@@ -18,6 +18,9 @@ import {
 import { createTheme } from '@mui/material/styles';
 import { grey } from "@mui/material/colors";
 import GroupingPage from "./pages/teacher/groupingPage";
+import GamesSelectorPage from './pages/games/gamesSelectorPage';
+import FoodCultureGameStartPage from './pages/games/foodCultureGame/FoodCultureGameStartPage';
+import FoodCulturegameSection from './pages/games/foodCultureGame/FoodCulturegamePlay';
 
 export const theme = createTheme({
     palette: {
@@ -87,8 +90,9 @@ function FrontPage() {
 
     const boxes = [
         { title: "Lag deilig mat!", gradient: "linear-gradient(45deg, #f3e5f5 30%, #f6e68a 90%)", link: "/recipes" },
-        { title: "Lærer seksjson!", gradient: "linear-gradient(45deg, #ffebee 30%, #ff8a80 90%)", link: "/teacher" },
+        { title: "Lærer seksjon!", gradient: "linear-gradient(45deg, #ffebee 30%, #ff8a80 90%)", link: "/teacher" },
         { title: "Logg inn!", gradient: "linear-gradient(45deg, #e1bee7 30%, #ba68c8 90%)", link: "/login" },
+        { title: "Spill", gradient: "linear-gradient(45deg, #e1bee7 30%, #ba68c8 90%)", link: "/games" },
     ];
 
     return (
@@ -128,6 +132,9 @@ function App() {
                 <Route path={"/recipes/"} element={<RecipesPage/>} />
                 <Route path={"/login/"} element={<LoginPage/>} />
                 <Route path={"/profile"} element={<ProfilePage/>} />
+                <Route path={"/games"} element={<GamesSelectorPage/>} />
+                <Route path={"/games/foodCultureGame"} element={<FoodCultureGameStartPage/>} />
+                <Route path={"/games/foodCultureGamePlay"} element={<FoodCulturegameSection/>} />
             </Routes>
         </BrowserRouter>
     );
