@@ -1,5 +1,15 @@
 import React, {useState} from "react";
-import {AppBar, Box, Drawer, IconButton, ListItemButton, ListItemText, Toolbar} from "@mui/material";
+import {
+    Accordion, AccordionDetails,
+    AccordionSummary,
+    AppBar,
+    Box,
+    Drawer,
+    IconButton,
+    ListItemButton,
+    ListItemText,
+    Toolbar, Typography
+} from "@mui/material";
 import {Link} from "react-router-dom";
 import {ThemeProvider} from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -20,26 +30,50 @@ export function NavBar(){
         <Box
             sx={{ width: 240}}
             role="presentation"
-            onClick={handleDrawerClose}
-            onKeyDown={handleDrawerClose}
         >
             <Link to={"/"}>
-                <ListItemButton>
+                <ListItemButton
+                    onClick={handleDrawerClose}
+                >
                     <ListItemText primary="Hjem"/>
                 </ListItemButton>
             </Link>
-            <Link to="/teacher">
-                <ListItemButton>
-                    <ListItemText primary="Lærer område"/>
-                </ListItemButton>
-            </Link>
+            <Accordion>
+                <AccordionSummary
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <Typography>Lærer område</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Link to="/teacher">
+                        <ListItemButton
+                            onClick={handleDrawerClose}
+                        >
+                            <ListItemText primary="Lærer hjem"/>
+                        </ListItemButton>
+                    </Link>
+                </AccordionDetails><AccordionDetails>
+                    <Link to="/teacher/grouping">
+                        <ListItemButton
+                            onClick={handleDrawerClose}
+                        >
+                            <ListItemText primary="Gruppering"/>
+                        </ListItemButton>
+                    </Link>
+                </AccordionDetails>
+            </Accordion>
             <Link to="/recipes">
-                <ListItemButton>
+                <ListItemButton
+                    onClick={handleDrawerClose}
+                >
                     <ListItemText primary="Oppskrifter"/>
                 </ListItemButton>
             </Link>
             <Link to="/login">
-                <ListItemButton>
+                <ListItemButton
+                    onClick={handleDrawerClose}
+                >
                     <ListItemText primary="Login"/>
                 </ListItemButton>
             </Link>
