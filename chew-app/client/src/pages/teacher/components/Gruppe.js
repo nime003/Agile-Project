@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Gruppe.css";
+import "../../../styles/Gruppe.css";
 
 const Gruppe = ({ name, addStudentToGroup, removeStudentFromGroup }) => {
   const [group, setGroup] = useState([]);

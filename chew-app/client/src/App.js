@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { TeacherPage } from "./pages/teacher/teacher";
 import { RecipesPage } from "./pages/recipes/recipes";
+import { NavBar } from "./navBar";
 import LoginPage from "./pages/account/login";
 import ProfilePage from "./pages/account/profile";
-import MenuIcon from '@mui/icons-material/Menu';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import {
-    AppBar,
-    Box,
-    Drawer,
-    IconButton, ListItemButton, ListItemText,
-    Toolbar,
     Typography,
-    Button, Card, CardContent, Grid
+    Button,
+    Card,
+    CardContent,
+    Grid
 } from "@mui/material";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { grey } from "@mui/material/colors";
 import GroupingPage from "./pages/teacher/groupingPage";
 
@@ -116,79 +114,7 @@ function FrontPage() {
     );
 }
 
-function NavBar(){
-    const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const handleDrawerOpen = () => {
-        setDrawerOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setDrawerOpen(false);
-    };
-
-    const list = () => (
-        <Box
-            sx={{ width: 240}}
-            role="presentation"
-            onClick={handleDrawerClose}
-            onKeyDown={handleDrawerClose}
-        >
-            <Link to={"/"}>
-                <ListItemButton>
-                    <ListItemText primary="Hjem"/>
-                </ListItemButton>
-            </Link>
-            <Link to="/teacher">
-                <ListItemButton>
-                    <ListItemText primary="Lærer område"/>
-                </ListItemButton>
-            </Link>
-            <Link to="/recipes">
-                <ListItemButton>
-                    <ListItemText primary="Oppskrifter"/>
-                </ListItemButton>
-            </Link>
-            <Link to="/login">
-                <ListItemButton>
-                    <ListItemText primary="Login"/>
-                </ListItemButton>
-            </Link>
-        </Box>
-    );
-
-    return(
-        <ThemeProvider theme={theme}>
-            <Box>
-                <AppBar position="static">
-                    <Toolbar sx={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <Link to="/" style={{ color: 'inherit', textDecoration: 'none'}}>
-                            <img src={process.env.PUBLIC_URL + "images/ChewLogo.png"} alt="Logo"
-                                style={{height:'50px', width: 'auto'}}
-                            />
-                        </Link>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="start"
-                            onClick={handleDrawerOpen}
-                            sx={{mr: 2}}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    anchor="right"
-                    open={drawerOpen}
-                    onClose={handleDrawerClose}
-                >
-                    {list()}
-                </Drawer>
-            </Box>
-        </ThemeProvider>
-    );
-}
 
 function App() {
 

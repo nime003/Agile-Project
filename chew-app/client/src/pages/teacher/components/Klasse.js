@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/Klasse.css'
+import '../../../styles/Klasse.css'
 
 function Klasse({students}) {
 
