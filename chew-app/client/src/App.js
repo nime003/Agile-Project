@@ -21,6 +21,7 @@ import GroupingPage from "./pages/teacher/groupingPage";
 import GamesSelectorPage from './pages/games/gamesSelectorPage';
 import FoodCultureGameStartPage from './pages/games/foodCultureGame/FoodCultureGameStartPage';
 import FoodCulturegameSection from './pages/games/foodCultureGame/FoodCulturegamePlay';
+import { useState, useEffect } from "react";
 
 export const theme = createTheme({
     palette: {
@@ -121,10 +122,15 @@ function FrontPage() {
 
 
 function App() {
+   const handleExperiencePoints = (value) => {
+    setExperiencePoints(value);
+   }
+   const [experiencePoints, setExperiencePoints] = useState(0);
+   
 
     return (
         <BrowserRouter>
-            <NavBar/>
+            <NavBar experiencePointToHandle={experiencePoints} />
             <Routes>
                 <Route path={"/"} element={<FrontPage/>} />
                 <Route path={"/teacher/"} element={<TeacherPage/>} />
@@ -134,7 +140,7 @@ function App() {
                 <Route path={"/profile"} element={<ProfilePage/>} />
                 <Route path={"/games"} element={<GamesSelectorPage/>} />
                 <Route path={"/games/foodCultureGame"} element={<FoodCultureGameStartPage/>} />
-                <Route path={"/games/foodCultureGamePlay"} element={<FoodCulturegameSection/>} />
+                <Route path={"/games/foodCultureGamePlay"} element={<FoodCulturegameSection handleExperiencePoints={handleExperiencePoints} />} />
             </Routes>
         </BrowserRouter>
     );

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
     Accordion, AccordionDetails,
     AccordionSummary,
@@ -14,8 +14,18 @@ import {Link} from "react-router-dom";
 import {ThemeProvider} from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import {theme} from "./App";
+import './css/navbar.css'
 
-export function NavBar(){
+export function NavBar(props){
+    const [experiencePoints, setExperiencePoints] = useState(0);
+
+    useEffect(()=>{
+        if(props.experiencePointToHandle > 0){
+            const points = experiencePoints + props.experiencePointToHandle;
+            setExperiencePoints(points)
+        } 
+    }, [props.experiencePointToHandle, experiencePoints]);
+
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const handleDrawerOpen = () => {
@@ -93,15 +103,25 @@ export function NavBar(){
                                  style={{height:'50px', width: 'auto'}}
                             />
                         </Link>
+                        <div class="side-options">
+                        <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{  display: { xs: 'none', sm: 'block' } }}
+                      >
+                      🎖️Poeng: {experiencePoints}
+                      </Typography>
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerOpen}
-                            sx={{mr: 2}}
+                            sx={{mr: 2,}}
                         >
                             <MenuIcon />
                         </IconButton>
+                        </div>
                     </Toolbar>
                 </AppBar>
                 <Drawer

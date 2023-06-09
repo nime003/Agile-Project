@@ -19,6 +19,7 @@ const data = [
     { country: 'ru', value: 'Rødbetsuppe'  }, // russia
     { country: 'mx', value: 'Taco'  }, // mexico
     { country: 'ca', value: 'Mac and cheese'}, // canada
+    { country: 'se', value: 'Svenske kjøttboller'}, // csweden
   ];
   const countryName = {
     se: 'Sverige',

@@ -19,7 +19,6 @@ function FoodCultureGameStartPage() {
         return countryName[selectedContryCode] ?? 'Namn inte funnet'
     };
     const clickOnCountry = ({ countryValue, countryCode}) => {
-        console.log()
         if(countryValue && countryCode){
             setState({
                 countryName: setCountryName(countryCode),

@@ -6,19 +6,18 @@ import '../../../css/selectFlag.css'
 const SelectFlag = ({countries,selectedCountryFlag}) => {
 
 const selectedFlag = (selectedCountry) => {
-    console.log(selectedCountry)
     selectedCountryFlag(selectedCountry)
 }
         return (
     <div>
-    <h3 class="title">Velg landet som tilhører lands retten</h3>
+    <h3 class="title">Velg riktig flagg</h3>
     <span className="flags-container" >
     {countries.map((countryObject) => {
         return(
             <div key={countryObject.country}>
             <ReactCountryFlag onClick={() => selectedFlag(countryObject)} className="flag-item" style={{
-            fontSize: '10em',
-            lineHeight: '10em',
+            fontSize: '5em',
+            lineHeight: '5em',
         }} countryCode={countryObject.country} svg/>
         <p>{countryName[countryObject.country]}</p>
         </div>
